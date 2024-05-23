@@ -11,7 +11,7 @@ Welcome to the Pizza 365 repository! This project is a comprehensive web applica
 ## Project Overview
   - Homepage: Store Information, Combo List.
   - Menu: Orders, Discount Codes, Calculation, Checking, Sending Applications; Monitor the Status of the Order.
-  - 
+    
 ## Live Demo
 To see the completed project, you can view the live demo [here](). It is hosted on GitHub Pages, providing a full preview of the landing page.
 
