@@ -527,6 +527,7 @@
             if (vKetQuaKiemTra) {
                 //Bước 3: Hiển thị
                 showOrderInfo(vOrder);
+                inThongTinRaConsole(vOrder);
             }
         }
         //Hàm được gọi khi ấn nút Gửi đơn
@@ -617,7 +618,7 @@
             var vValueInputMessage = vElementInputMessage.value;
 
             var vElementInputVoucherID = document.getElementById('input-voucher');
-            vValueInputVoucherID = vElementInputVoucherID.value.trim();
+            vValueInputVoucherID = vElementInputVoucherID.value;
 
             // khái báo biến để chứa phần trăm giảm giá
             // var vPercent = 0;
@@ -778,9 +779,9 @@
         }
 
         /* Hàm kiểm tra định dạng email
-   đầu vào: email cần kiểm tra
-   đầu ra: return true nếu email đúng định dang; và ngược lại return false nếu email sai định dạng
-   */
+        đầu vào: email cần kiểm tra
+        đầu ra: return true nếu email đúng định dang; và ngược lại return false nếu email sai định dạng
+        */
         function validateEmail(paramEmail) {
             var vRegexEmail =
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -791,11 +792,11 @@
             return vResult;
         }
 
-        /* Hàm kiểm tra số điện thoại 
-    đầu vào: Số điện thoại cần kiểm tra
-    đầu ra: return true nếu số điện thoại thỏa mãn yêu cầu: phải nhập là số, có dấu + hoặc số 0 ở đầu; độ dài từ 10 đến 12 ký tự (viết hàm riêng); 
-      và ngược lại return false nếu số điện thoại không thỏa mãn yêu cầu
-    */
+        /* Hàm kiểm tra số điện thoại
+        đầu vào: Số điện thoại cần kiểm tra
+        đầu ra: return true nếu số điện thoại thỏa mãn yêu cầu: phải nhập là số, có dấu + hoặc số 0 ở đầu; độ dài từ 10 đến 12 ký tự (viết hàm riêng);
+        và ngược lại return false nếu số điện thoại không thỏa mãn yêu cầu
+         */
         function validatePhoneNumber(paramPhoneNumber) {
             var vFormatReg = /^\d{10}$/;
             if (paramPhoneNumber.match(vFormatReg)) {
@@ -803,55 +804,6 @@
             } else {
                 return false;
             }
-        }
-
-        /// hàm show thông tin đặt hàng
-        function showOrderInfo(paramOrder, paramXmlHttp) {
-            var vDivContainer = document.getElementById('div-container-order');
-            var vDivOrderInfo = document.getElementById('div-order-infor');
-            var vSelectDrink = document.getElementById('select-drink');
-            vDivContainer.style.display = 'block';
-            vDivOrderInfo.innerHTML = 'Họ và tên: ' + paramOrder.fullName + '<br>';
-            vDivOrderInfo.innerHTML += 'Email: ' + paramOrder.email + '<br>';
-            vDivOrderInfo.innerHTML += 'Địa chỉ: ' + paramOrder.address + '<br>';
-            vDivOrderInfo.innerHTML += 'Lời nhắn: ' + paramOrder.loiNhan + '<br>';
-            vDivOrderInfo.innerHTML += '.....................................' + '<br>';
-            vDivOrderInfo.innerHTML += 'Kích cỡ: ' + paramOrder.menuCombo.pizzaSize + '<br>';
-            vDivOrderInfo.innerHTML += 'Đường kính: ' + paramOrder.menuCombo.duongKinh + '<br>';
-            vDivOrderInfo.innerHTML += 'Sườn nướng: ' + paramOrder.menuCombo.suon + '<br>';
-            vDivOrderInfo.innerHTML += 'Salad : ' + paramOrder.menuCombo.salad + '<br>';
-            vDivOrderInfo.innerHTML += 'Nước Ngọt : ' + paramOrder.menuCombo.maNuocUong + '<br>';
-            vDivOrderInfo.innerHTML +=
-                'Loại nước uống: ' + vSelectDrink.options[vSelectDrink.selectedIndex].text + '<br>';
-            vDivOrderInfo.innerHTML += '.....................................' + '<br>';
-            vDivOrderInfo.innerHTML += 'Loại pizza : ' + paramOrder.pizzaType + '<br>';
-            vDivOrderInfo.innerHTML += 'Mã voucher : ' + paramOrder.maVoucher + '<br>';
-            vDivOrderInfo.innerHTML += 'Discount % : ' + paramOrder.phanTramGiamGia + '<br>';
-            vDivOrderInfo.innerHTML += 'Giá vnd : ' + paramOrder.menuCombo.thanhTien + '<br>';
-            vDivOrderInfo.innerHTML += 'Phải thanh toán vnd: ' + paramOrder.total;
-        }
-
-        // Hàm ghi thông tin đặt hàng ra console
-        function inThongTinRaConsole(paramOrder) {
-            var vSelectDrink = document.getElementById('select-drink');
-            console.log('%c Thông tin đặt hàng', 'color: green;');
-            console.log('Họ và tên: ' + paramOrder.fullName);
-            console.log('Email: ' + paramOrder.email);
-            console.log('Địa chỉ: ' + paramOrder.address);
-            console.log('Lời nhắn: ' + paramOrder.loiNhan);
-            console.log('.....................................');
-            console.log('Kích cỡ: ' + paramOrder.menuCombo.pizzaSize);
-            console.log('Đường kính: ' + paramOrder.menuCombo.duongKinh);
-            console.log('Sườn nướng: ' + paramOrder.menuCombo.suon);
-            console.log('Salad : ' + paramOrder.menuCombo.salad);
-            console.log('Nước Ngọt : ' + paramOrder.menuCombo.maNuocUong);
-            console.log('Loại nước uống: ' + vSelectDrink.options[vSelectDrink.selectedIndex].text);
-            console.log('.....................................');
-            console.log('Loại pizza : ' + paramOrder.pizzaType);
-            console.log('Mã voucher : ' + paramOrder.maVoucher);
-            console.log('Giá vnd : ' + paramOrder.menuCombo.thanhTien);
-            console.log('Discount %: ' + paramOrder.phanTramGiamGia);
-            console.log('Phải thanh toán vnd: ' + paramOrder.total);
         }
 
         // Mã nguồn để load data drink list
@@ -880,37 +832,86 @@
             }
         }
 
+        var vResponsePercent = '';
         function goiAPIDeCheckMaGiamGia(paramVoucher) {
             'use strict';
-            const vBASE_URL = 'http://203.171.20.210:8080/devcamp-pizza365/voucher_detail/';
-            var vXmlHttp = new XMLHttpRequest();
-            vXmlHttp.open('GET', vBASE_URL + paramVoucher, false);
-            vXmlHttp.send();
-            if (vXmlHttp.status == gREQUEST_STATUS_OK) {
-                // restFullAPI successful
-                // nhận lại response dạng JSON ở vXmlHttp.responseText và chuyển thành object
-                console.log(vXmlHttp.responseText);
-                console.log(JSON.parse(vXmlHttp.responseText));
-            } else {
-                // không nhận lại được data do vấn đề gì đó: khả năng mã voucher ko dúng
-                console.log('Không tìm thấy voucher ' + vXmlHttp.responseText);
-            }
+
+            var vBASE_URL = 'http://203.171.20.210:8080/devcamp-pizza365/vouchers';
+            var vXhttp = new XMLHttpRequest();
+            vXhttp.open('GET', vBASE_URL, true);
+            vXhttp.send();
+            vXhttp.onreadystatechange = function () {
+                if (this.readyState == gREQUEST_READY_STATUS_FINISH_AND_OK && this.status == gREQUEST_STATUS_OK) {
+                    var vVoucherList = JSON.parse(vXhttp.responseText);
+                    checkVoucher(vVoucherList, paramVoucher);
+                }
+            };
+
+            return vResponsePercent;
         }
 
         function checkVoucher(paramVoucher, paramVoucherCode) {
             var isVoucherFound = false;
             for (var i = 0; i < paramVoucher.length; i++) {
                 var vVoucherCode = paramVoucher[i].maVoucher;
-
-                if (vVoucherCode === paramVoucherCode) {
-                    vResponsePercent = paramVoucher[0].phanTramGiamGia;
-                    isVoucherFound = true; // Đánh dấu rằng voucher đã được tìm thấy
-                    break; // Thoát khỏi vòng lặp khi tìm thấy voucher
+                if (vVoucherCode == paramVoucherCode) {
+                    isVoucherFound = true;
+                    vResponsePercent = paramVoucher[i].phanTramGiamGia;
+                    break;
                 }
             }
             if (!isVoucherFound) {
-                alert('Không tìm thấy voucher');
+                console.log('Mã voucher không hợp lệ');
+                vResponsePercent = 0;
             }
+        }
+        /// hàm show thông tin đặt hàng
+        function showOrderInfo(paramOrder) {
+            var vDivContainer = document.getElementById('div-container-order');
+            var vDivOrderInfo = document.getElementById('div-order-infor');
+            var vSelectDrink = document.getElementById('select-drink');
+            vDivContainer.style.display = 'block';
+            vDivOrderInfo.innerHTML = 'Họ và tên: ' + paramOrder.fullName + '<br>';
+            vDivOrderInfo.innerHTML += 'Email: ' + paramOrder.email + '<br>';
+            vDivOrderInfo.innerHTML += 'Địa chỉ: ' + paramOrder.address + '<br>';
+            vDivOrderInfo.innerHTML += 'Lời nhắn: ' + paramOrder.loiNhan + '<br>';
+            vDivOrderInfo.innerHTML += '.....................................' + '<br>';
+            vDivOrderInfo.innerHTML += 'Kích cỡ: ' + paramOrder.menuCombo.pizzaSize + '<br>';
+            vDivOrderInfo.innerHTML += 'Đường kính: ' + paramOrder.menuCombo.duongKinh + '<br>';
+            vDivOrderInfo.innerHTML += 'Sườn nướng: ' + paramOrder.menuCombo.suon + '<br>';
+            vDivOrderInfo.innerHTML += 'Salad : ' + paramOrder.menuCombo.salad + '<br>';
+            vDivOrderInfo.innerHTML += 'Nước Ngọt : ' + paramOrder.menuCombo.maNuocUong + '<br>';
+            vDivOrderInfo.innerHTML +=
+                'Loại nước uống: ' + vSelectDrink.options[vSelectDrink.selectedIndex].text + '<br>';
+            vDivOrderInfo.innerHTML += '.....................................' + '<br>';
+            vDivOrderInfo.innerHTML += 'Loại pizza : ' + paramOrder.pizzaType + '<br>';
+            vDivOrderInfo.innerHTML += 'Mã voucher : ' + paramOrder.maVoucher + '<br>';
+            vDivOrderInfo.innerHTML += 'Discount : ' + paramOrder.phanTramGiamGia + '<br>';
+            vDivOrderInfo.innerHTML += 'Giá vnd : ' + paramOrder.menuCombo.thanhTien + '<br>';
+            vDivOrderInfo.innerHTML += 'Phải thanh toán vnd: ' + paramOrder.total;
+        }
+
+        // Hàm ghi thông tin đặt hàng ra console
+        function inThongTinRaConsole(paramOrder) {
+            var vSelectDrink = document.getElementById('select-drink');
+            console.log('%c Thông tin đặt hàng', 'color: green;');
+            console.log('Họ và tên: ' + paramOrder.fullName);
+            console.log('Email: ' + paramOrder.email);
+            console.log('Địa chỉ: ' + paramOrder.address);
+            console.log('Lời nhắn: ' + paramOrder.loiNhan);
+            console.log('.....................................');
+            console.log('Kích cỡ: ' + paramOrder.menuCombo.pizzaSize);
+            console.log('Đường kính: ' + paramOrder.menuCombo.duongKinh);
+            console.log('Sườn nướng: ' + paramOrder.menuCombo.suon);
+            console.log('Salad : ' + paramOrder.menuCombo.salad);
+            console.log('Nước Ngọt : ' + paramOrder.menuCombo.maNuocUong);
+            console.log('Loại nước uống: ' + vSelectDrink.options[vSelectDrink.selectedIndex].text);
+            console.log('.....................................');
+            console.log('Loại pizza : ' + paramOrder.pizzaType);
+            console.log('Mã voucher : ' + paramOrder.maVoucher);
+            console.log('Giá vnd : ' + paramOrder.menuCombo.thanhTien);
+            console.log('Discount %: ' + paramOrder.phanTramGiamGia);
+            console.log('Phải thanh toán vnd: ' + paramOrder.total);
         }
     </script>
 </html>
